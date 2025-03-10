@@ -1,16 +1,27 @@
-import React from 'react';
-import { ChevronDown, ChevronRight, TrendingUp } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { format } from 'date-fns';
-import type { ProductStats } from '../types';
+import React from "react";
+import { ChevronDown, ChevronRight, TrendingUp } from "lucide-react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { format } from "date-fns";
+import type { ProductStats } from "../types";
 
 interface ProductStatsTableProps {
   stats: ProductStats[];
 }
 
 export function ProductStatsTable({ stats }: ProductStatsTableProps) {
-  const [expandedProducts, setExpandedProducts] = React.useState<Set<string>>(new Set());
-  const [selectedProduct, setSelectedProduct] = React.useState<string | null>(null);
+  const [expandedProducts, setExpandedProducts] = React.useState<Set<string>>(
+    new Set()
+  );
+  const [selectedProduct, setSelectedProduct] = React.useState<string | null>(
+    null
+  );
 
   const toggleProduct = (productId: string) => {
     const newExpanded = new Set(expandedProducts);
@@ -25,9 +36,9 @@ export function ProductStatsTable({ stats }: ProductStatsTableProps) {
   };
 
   const formatCurrency = (value: number) =>
-    new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
     }).format(value);
 
   return (
@@ -53,8 +64,8 @@ export function ProductStatsTable({ stats }: ProductStatsTableProps) {
           <tbody className="bg-white divide-y divide-gray-200">
             {stats.map((product) => (
               <React.Fragment key={product.productId}>
-                <tr 
-                  className="hover:bg-gray-50 cursor-pointer" 
+                <tr
+                  className="hover:bg-gray-50 cursor-pointer"
                   onClick={() => toggleProduct(product.productId)}
                 >
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -79,7 +90,7 @@ export function ProductStatsTable({ stats }: ProductStatsTableProps) {
                 </tr>
                 {expandedProducts.has(product.productId) && (
                   <>
-                    <tr>
+                    {/* <tr>
                       <td colSpan={4} className="px-6 py-4 bg-gray-50">
                         <div className="h-64">
                           <ResponsiveContainer width="100%" height="100%">
@@ -104,7 +115,7 @@ export function ProductStatsTable({ stats }: ProductStatsTableProps) {
                           </ResponsiveContainer>
                         </div>
                       </td>
-                    </tr>
+                    </tr> */}
                     {product.variants.map((variant) => (
                       <tr key={variant.variantId} className="bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500 pl-12">
@@ -129,7 +140,7 @@ export function ProductStatsTable({ stats }: ProductStatsTableProps) {
         </table>
       </div>
 
-      {selectedProduct && (
+      {/* {selectedProduct && (
         <div className="mt-6 bg-white p-6 rounded-lg shadow">
           <div className="flex items-center mb-4">
             <TrendingUp className="h-5 w-5 text-pink-500 mr-2" />
@@ -139,7 +150,7 @@ export function ProductStatsTable({ stats }: ProductStatsTableProps) {
             Product performance over time
           </p>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
